@@ -10,7 +10,212 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <title>Sketch a Frame by sketchaframe</title>
+    
+    <!-- Add jQuery library -->
+     <!-- Add jQuery library -->
+	<script type="text/javascript" src="fancybox/lib/jquery-1.8.2.min.js"></script>
+
+	<!-- Add mousewheel plugin (this is optional) -->
+	<script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+
+	<!-- Add fancyBox main JS and CSS files -->
+	<script type="text/javascript" src="fancybox/source/jquery.fancybox.js?v=2.1.3"></script>
+	<link rel="stylesheet" type="text/css" href="fancybox/source/jquery.fancybox.css?v=2.1.2" media="screen" />
+
+	<!-- Add Button helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" />
+	<script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+
+	<!-- Add Thumbnail helper (this is optional) -->
+	<link rel="stylesheet" type="text/css" href="fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" />
+	<script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+	<!-- Add Media helper (this is optional) -->
+	<script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+			 *  Simple image gallery. Uses default settings
+			 */
+
+			$('.fancybox').fancybox();
+
+			/*
+			 *  Different effects
+			 */
+
+			// Change title type, overlay closing speed
+			$(".fancybox-effects-a").fancybox({
+				helpers: {
+					title : {
+						type : 'outside'
+					},
+					overlay : {
+						speedOut : 0
+					}
+				}
+			});
+
+			// Disable opening and closing animations, change title type
+			$(".fancybox-effects-b").fancybox({
+				openEffect  : 'none',
+				closeEffect	: 'none',
+
+				helpers : {
+					title : {
+						type : 'over'
+					}
+				}
+			});
+
+			// Set custom style, close if clicked, change title type and overlay color
+			$(".fancybox-effects-c").fancybox({
+				wrapCSS    : 'fancybox-custom',
+				closeClick : true,
+
+				openEffect : 'none',
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					overlay : {
+						css : {
+							'background' : 'rgba(238,238,238,0.85)'
+						}
+					}
+				}
+			});
+
+			// Remove padding, set opening and closing animations, close if clicked and disable overlay
+			$(".fancybox-effects-d").fancybox({
+				padding: 0,
+
+				openEffect : 'elastic',
+				openSpeed  : 150,
+
+				closeEffect : 'elastic',
+				closeSpeed  : 150,
+
+				closeClick : true,
+
+				helpers : {
+					overlay : null
+				}
+			});
+
+			/*
+			 *  Button helper. Disable animations, hide close button, change title type and content
+			 */
+
+			$('.fancybox-buttons').fancybox({
+				openEffect  : 'none',
+				closeEffect : 'none',
+
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+
+				helpers : {
+					title : {
+						type : 'inside'
+					},
+					buttons	: {}
+				},
+
+				afterLoad : function() {
+					this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+				}
+			});
+
+
+			/*
+			 *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
+			 */
+
+			$('.fancybox-thumbs').fancybox({
+				prevEffect : 'none',
+				nextEffect : 'none',
+
+				closeBtn  : false,
+				arrows    : false,
+				nextClick : true,
+
+				helpers : {
+					thumbs : {
+						width  : 50,
+						height : 50
+					}
+				}
+			});
+
+			/*
+			 *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
+			*/
+			$('.fancybox-media')
+				.attr('rel', 'media-gallery')
+				.fancybox({
+					openEffect : 'none',
+					closeEffect : 'none',
+					prevEffect : 'none',
+					nextEffect : 'none',
+
+					arrows : false,
+					helpers : {
+						media : {},
+						buttons : {}
+					}
+				});
+
+			/*
+			 *  Open manually
+			 */
+
+			$("#fancybox-manual-a").click(function() {
+				$.fancybox.open('1_b.jpg');
+			});
+
+			$("#fancybox-manual-b").click(function() {
+				$.fancybox.open({
+					href : 'iframe.html',
+					type : 'iframe',
+					padding : 5
+				});
+			});
+
+			$("#fancybox-manual-c").click(function() {
+				$.fancybox.open([
+					{
+						href : '1_b.jpg',
+						title : 'My title'
+					}, {
+						href : '2_b.jpg',
+						title : '2nd title'
+					}, {
+						href : '3_b.jpg'
+					}
+				], {
+					helpers : {
+						thumbs : {
+							width: 75,
+							height: 50
+						}
+					}
+				});
+			});
+
+
+		});
+	</script>
+	<style type="text/css">
+		.fancybox-custom .fancybox-skin {
+			box-shadow: 0 0 50px #222;
+		}
+	</style>
+    
+    <title>Sketch a Frame</title>
   </head>
 
   <body>
@@ -18,47 +223,54 @@
       <div class="inner">
 
         <header>
-          <h1>Sketch a Frame</h1>
+          <h1>Sketch a Frame<img src="images/icon-144.png" alt="icon" width="120" height="120" align="right"></h1>
           <h2>A finite element software for the iPad</h2>
         </header>
 
         <section id="downloads" class="clearfix">
-          <a href="https://github.com/sketchaframe" id="view-on-github" class="button"><span>View on GitHub</span></a>
+   		<a href="https://itunes.apple.com/us/app/sketch-a-frame/id563527046?ls=1&mt=8" id="download-tar-gz" class="button"><span>View in App Store</span></a>
+        <a href="https://github.com/sketchaframe" id="view-on-github" class="button"><span>View on GitHub</span></a>
         </section>
 
         <hr>
 
         <section id="main_content">
-          <h3>Welcome to GitHub Pages.</h3>
+          <h2>Introduction</h2>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p>Sketch a Frame is a finite element software tool for the iPad. The tool is developed for the early stage design process and for educational puposes. Gestures are used for modelling, and calculations are perfomed as the model is stable. The software has four different modes; geometry, normal force and moment, tension and the redundancy tool. If the modell is not stable the modal shape is visualised which helps the user to understand how to stabilise the model.
+</p>
+<p>This is a master thesis work by Daniel Åkesson at Lunds University.</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<h3>Geometry mode</h3>
+<p>
+When the model is stable the deformation shape is visualised. This is automatically scaled as changes are applied. If the model is not stable the corresponding modal shape is visualised.
+</p>
+<p><center><a class="fancybox" rel="group" href="images/geometry.jpg"><img src="images/geometry_thumb.jpg" alt="" /></a></center>
+</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<h3>Normal force & moment mode</h3>
+<p>
+The normal force is a measure of the force in the direction of the beam. Red represents tension and blue compression. </p>
+<p>
+The green area represents the moment in the beam. This is automatically rescaled as the changes are applied.</p>
+<p><center><a class="fancybox" rel="group" href="images/force.jpg"><img src="images/force_thumb.jpg" alt="" /></a></center>
+</p>
 
-<h3>Designer Templates</h3>
+<h3>Tension mode</h3>
+<p>The tension is calculated by N/A+M/W using material parameters from an IPE-80 beam. The tension is normalised and visualised from black 0 % to red 100 % of relative tension</p>
+<p><center><a class="fancybox" rel="group" href="images/tension.jpg"><img src="images/tension_thumb.jpg" alt="" /></a></center>
+</p>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<h3>Redundancy mode</h3>
+<p>A normalised redudancy of 0 % (blue) means that the element is cannot be removed as its removal would render the framwork unstable. A factor of 100 % (red) means that the element is highly redundant. The redundancy analysis is made without considering a specific load case thus only topology, geometry and constraints are considered. Based on the work of Gunnar Tibert.</p>
 
-<h3>Rather Drive Stick?</h3>
+<p><center><a class="fancybox" rel="group" href="images/redundancy.jpg"><img src="images/redundancy_thumb.jpg" alt="" /></a></center>
+</p>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
         </section>
 
         <footer>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+          Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
         </footer>
 
                   <script type="text/javascript">
